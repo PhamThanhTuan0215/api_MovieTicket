@@ -56,7 +56,15 @@ Router.post('/register', (req, res) => {
             res.json({code: 0, message: 'Đăng ký thành công', data: a})
         })
         .catch(e => {
-            res.json({code: 2, message: 'Đăng ký thất bại: ' + e.message}) 
+            if (e.message.includes('username')) {
+                res.json({code: 2, message: 'Tên tài khoản đã tồn tại'}) 
+            }
+            else if (e.message.includes('email')) {
+                res.json({code: 2, message: 'Email đã tồn tại'}) 
+            }
+            else {
+                res.json({code: 2, message: 'Đăng ký thất bại: ' + e.message}) 
+            }
         })
 })
 
@@ -81,7 +89,15 @@ Router.post('/update', (req, res) => {
             res.json({code: 0, message: 'Cập nhật thành công', data: a})
         })
         .catch(e => {
-            res.json({code: 2, message: 'Cập nhật thất bại: ' + e.message}) 
+            if (e.message.includes('username')) {
+                res.json({code: 2, message: 'Tên tài khoản đã tồn tại'}) 
+            }
+            else if (e.message.includes('email')) {
+                res.json({code: 2, message: 'Email đã tồn tại'}) 
+            }
+            else {
+                res.json({code: 2, message: 'Cập nhật thất bại: ' + e.message})
+            }
         })
 
 })
