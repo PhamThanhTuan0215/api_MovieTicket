@@ -27,7 +27,7 @@ Router.post('/login', (req, res) => {
                         res.json({code: 2, message: 'Sai mật khẩu'}) 
                     }
                     else {
-                        res.json({code: 2, message: 'Đăng nhập thành công', data: account}) 
+                        res.json({code: 0, message: 'Đăng nhập thành công', data: account}) 
                     }
                 })
             }     
