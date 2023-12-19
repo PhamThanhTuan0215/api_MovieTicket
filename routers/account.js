@@ -27,6 +27,7 @@ Router.post('/login', (req, res) => {
                         res.json({code: 2, message: 'Sai mật khẩu'}) 
                     }
                     else {
+                        account.password = password
                         res.json({code: 0, message: 'Đăng nhập thành công', data: account}) 
                     }
                 })
@@ -53,6 +54,7 @@ Router.post('/register', (req, res) => {
 
     account.save()
         .then (a => {
+            a.password = password
             res.json({code: 0, message: 'Đăng ký thành công', data: a})
         })
         .catch(e => {
@@ -86,6 +88,7 @@ Router.post('/update', (req, res) => {
         new: true
     })
         .then (a => {
+            a.password = password
             res.json({code: 0, message: 'Cập nhật thành công', data: a})
         })
         .catch(e => {
