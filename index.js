@@ -10,6 +10,8 @@ app.use(bodyParser.json());
 
 app.use('/movies', require('./routers/movie'))
 
+app.use('/accounts', require('./routers/account'))
+
 app.use((req, res) => {
     res.json({
         code: 1,
