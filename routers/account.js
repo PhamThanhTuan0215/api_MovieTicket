@@ -40,16 +40,16 @@ Router.post('/login', (req, res) => {
 
 Router.post('/register', (req, res) => {
     
-    const {username, email, password} = req.body
+    const {username, email, phone, password} = req.body
 
-    if(username == null || email == null || password == null) {
+    if(username == null || email == null || phone == null || password == null) {
         return res.json({code: 2, message: 'Thiếu thông tin'}) 
     }
 
     const hashed = bcrypt.hashSync(password, 5)
 
     let account = new Account({
-        username, email, password: hashed
+        username, email, phone, password: hashed
     })
 
     account.save()
@@ -62,7 +62,10 @@ Router.post('/register', (req, res) => {
                 res.json({code: 2, message: 'Tên tài khoản đã tồn tại'}) 
             }
             else if (e.message.includes('email')) {
-                res.json({code: 2, message: 'Email đã tồn tại'}) 
+                res.json({code: 2, message: 'Email đã được đăng ký'}) 
+            }
+            else if (e.message.includes('phone')) {
+                res.json({code: 2, message: 'Số điện thoại đã được đăng ký'}) 
             }
             else {
                 res.json({code: 2, message: 'Đăng ký thất bại: ' + e.message}) 
@@ -72,16 +75,16 @@ Router.post('/register', (req, res) => {
 
 Router.post('/update', (req, res) => {
     
-    const {id, username, email, password} = req.body
+    const {id, username, email, phone, password} = req.body
 
-    if(id == null || username == null || email == null || password == null) {
+    if(id == null || username == null || email == null || phone == null || password == null) {
         return res.json({code: 2, message: 'Thiếu thông tin'}) 
     }
 
     const hashed = bcrypt.hashSync(password, 5)
 
     let dataUpdate = {
-        username, email, password: hashed
+        username, email, phone, password: hashed
     }
 
     Account.findByIdAndUpdate(id, dataUpdate, {
@@ -96,7 +99,10 @@ Router.post('/update', (req, res) => {
                 res.json({code: 2, message: 'Tên tài khoản đã tồn tại'}) 
             }
             else if (e.message.includes('email')) {
-                res.json({code: 2, message: 'Email đã tồn tại'}) 
+                res.json({code: 2, message: 'Email đã được đăng ký'}) 
+            }
+            else if (e.message.includes('phone')) {
+                res.json({code: 2, message: 'Số điện thoại đã được đăng ký'}) 
             }
             else {
                 res.json({code: 2, message: 'Cập nhật thất bại: ' + e.message})
