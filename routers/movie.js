@@ -2,6 +2,7 @@ const express = require('express')
 const Router = express.Router()
 
 const Movie = require('../models/movie')
+const Shift = require('../models/shift')
 
 Router.get('/', (req, res) => {
 
@@ -11,6 +12,19 @@ Router.get('/', (req, res) => {
         })
         .catch(e => {
             res.json({code: 2, message: 'Lấy tất cả movie thất bại: ' + e.message})
+        })
+})
+
+Router.post('/shifts', (req, res) => {
+
+    const {movieId} = req.body
+
+    Shift.find({movieId: movieId})
+        .then(shifts => {
+            res.json({code: 0, message: 'Lấy tất cả suất chiếu thành công', data: shifts})
+        })
+        .catch(e => {
+            res.json({code: 2, message: 'Lấy tất cả suất chiếu thất bại: ' + e.message})
         })
 })
 
