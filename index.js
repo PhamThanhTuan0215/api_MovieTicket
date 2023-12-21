@@ -12,6 +12,8 @@ app.use('/movies', require('./routers/movie'))
 
 app.use('/accounts', require('./routers/account'))
 
+app.use('/orders', require('./routers/order'))
+
 app.use((req, res) => {
     res.json({
         code: 1,
