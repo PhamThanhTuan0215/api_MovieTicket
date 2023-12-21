@@ -9,7 +9,7 @@ Router.post('/login', (req, res) => {
     const {username, password} = req.body
 
     if(username === null || password == null) {
-        res.json({code: 2, message: 'Thiếu thông tin'}) 
+        return res.json({code: 2, message: 'Thiếu thông tin'}) 
     }
 
     let account = undefined
