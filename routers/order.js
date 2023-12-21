@@ -20,14 +20,18 @@ Router.post('/add', (req, res) => {
 
     order.save()
         .then (o => {
-            if(coin) {
-                Account.findById({movieId})
-                .then(a => {
+            Account.findById({movieId})
+            .then(a => {
+                if(coin) {
                     a.coin = a.coin - 100
-                    a.save()
-                })
-                .catch(e => {})
-            }
+                }
+                while(totalPrice >= 100) {
+                    totalPrice = totalPrice - 100
+                    a.coin = a.coin + 10
+                }
+                a.save()
+            })
+            .catch(e => {})
 
             Shift.findOne({
                 movieId: movieId,
