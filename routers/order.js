@@ -22,8 +22,7 @@ Router.post('/add', (req, res) => {
         .then (o => {
             Account.findOne({username: username})
             .then(a => {
-                let coinBoolean = Boolean(coin)
-                if(coinBoolean) {
+                if(coin === 'true') {
                     a.coin = a.coin - 100
                 }
                 let totalPriceNumber = parseFloat(totalPrice)
