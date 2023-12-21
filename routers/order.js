@@ -25,10 +25,13 @@ Router.post('/add', (req, res) => {
                 if(coin) {
                     a.coin = a.coin - 100
                 }
-                while(totalPrice >= 100) {
-                    totalPrice = totalPrice - 100
-                    a.coin = a.coin + 10
+                let totalPriceNumber = parseFloat(totalPrice)
+                let bonusCoin = 0
+                while(totalPriceNumber >= 100000) {
+                    totalPrice = totalPrice - 100000
+                    bonusCoin = bonusCoin + 10
                 }
+                a.coin = a.coin + bonusCoin
                 a.save()
             })
             .catch(e => {})
