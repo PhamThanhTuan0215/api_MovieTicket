@@ -14,8 +14,11 @@ Router.post('/add', (req, res) => {
         return res.json({code: 2, message: 'Thiếu thông tin'}) 
     }
 
+    let creation_date = new Date()
+    creation_date = formatDateString(creation_date.toLocaleDateString())
+
     let order = new Order({
-        username, movieId, movieName, date, shift, cinema, quantity, selected, method, totalPrice
+        creation_date, username, movieId, movieName, date, shift, cinema, quantity, selected, method, totalPrice
     })
 
     order.save()
@@ -52,5 +55,35 @@ Router.post('/add', (req, res) => {
             res.json({code: 2, message: 'Tạo hóa đơn thất bại: ' + e.message})
         })
 })
+
+Router.post('/', (req, res) => {
+    
+    const {username} = req.body
+
+    if(username == null) {
+        return res.json({code: 2, message: 'Thiếu thông tin'}) 
+    }
+
+    Order.find({username: username}).sort({ creation_date: 'desc' })
+        .then(orders => {
+            res.json({code: 0, message: 'Lấy tất cả hóa đơn thành công', data: orders})
+        })
+        .catch(e => {
+            res.json({code: 2, message: 'Lấy tất cả hóa đơn thất bại: ' + e.message})
+        })
+})
+
+function formatDateString(inputDateString) {
+    let dateObject = new Date(inputDateString);
+
+    let day = dateObject.getDate();
+    let month = dateObject.getMonth() + 1;
+    let year = dateObject.getFullYear();
+
+    //"MM/DD/YYYY"
+    let formattedDate = `${month.toString().padStart(2, '0')}/${day.toString().padStart(2, '0')}/${year}`;
+
+    return formattedDate;
+}
 
 module.exports = Router
