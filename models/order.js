@@ -7,6 +7,7 @@ const OrderSchema = new Schema({
     movieId: String,
     movieName: String,
     date: String,
+    url_avatar: String,
     shift: String,
     cinema: String,
     quantity: Number,

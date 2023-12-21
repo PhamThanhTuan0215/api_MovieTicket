@@ -7,9 +7,9 @@ const Shift = require('../models/shift')
 
 Router.post('/add', (req, res) => {
     
-    const {username, movieId, movieName, date, shift, cinema, quantity, selected, method, totalPrice, coin} = req.body
+    const {username, movieId, movieName, date, url_avatar, shift, cinema, quantity, selected, method, totalPrice, coin} = req.body
 
-    if(username == null || movieId == null || movieName == null || date == null || shift == null || cinema == null 
+    if(username == null || movieId == null || movieName == null || date == null || url_avatar == null || shift == null || cinema == null 
         || quantity == null || selected == null || method == null || totalPrice == null || coin == null) {
         return res.json({code: 2, message: 'Thiếu thông tin'}) 
     }
@@ -18,7 +18,7 @@ Router.post('/add', (req, res) => {
     creation_date = formatDateString(creation_date.toLocaleDateString())
 
     let order = new Order({
-        creation_date, username, movieId, movieName, date, shift, cinema, quantity, selected, method, totalPrice
+        creation_date, username, movieId, movieName, date, url_avatar, shift, cinema, quantity, selected, method, totalPrice
     })
 
     order.save()
