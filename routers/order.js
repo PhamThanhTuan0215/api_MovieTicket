@@ -20,7 +20,7 @@ Router.post('/add', (req, res) => {
 
     order.save()
         .then (o => {
-            Account.findById({movieId})
+            Account.findOne({username: username})
             .then(a => {
                 if(coin) {
                     a.coin = a.coin - 100
@@ -28,7 +28,7 @@ Router.post('/add', (req, res) => {
                 let totalPriceNumber = parseFloat(totalPrice)
                 let bonusCoin = 0
                 while(totalPriceNumber >= 100000) {
-                    totalPrice = totalPrice - 100000
+                    totalPriceNumber = totalPriceNumber - 100000
                     bonusCoin = bonusCoin + 10
                 }
                 a.coin = a.coin + bonusCoin
