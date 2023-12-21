@@ -3,6 +3,7 @@ const Router = express.Router()
 
 const Order = require('../models/order')
 const Account = require('../models/account')
+const Shift = require('../models/shift')
 
 Router.post('/add', (req, res) => {
     
@@ -20,13 +21,24 @@ Router.post('/add', (req, res) => {
     order.save()
         .then (o => {
             if(coin) {
-                Account.fi({movieId})
+                Account.findById({movieId})
                 .then(a => {
                     a.coin = a.coin - 100
                     a.save()
                 })
                 .catch(e => {})
             }
+
+            Shift.findOne({
+                movieId: movieId,
+                time: shift
+            })
+                .then(s => {
+                    s.selected = s.selected + ',' + selected
+                    s.save()
+                })
+                .catch(e => {})
+
             res.json({code: 0, message: 'Thanh toán thành công', data: o})
         })
         .catch(e => {
