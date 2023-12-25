@@ -8,6 +8,10 @@ const app = express()
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+app.use('/', (req, res) => {
+    return res.json({message: 'Api hỗ trợ ứng dụng đặt vé xem phim', status: 'Khởi động api thành công'})
+})
+
 app.use('/movies', require('./routers/movie'))
 
 app.use('/accounts', require('./routers/account'))
